@@ -56,8 +56,7 @@ export async function loginRequest(email, password) {
 
 export async function listRequest(entityKey) {
   try {
-    const data = await apiFetch(entityPath(entityKey))
-    return BACKEND.onAfterReceiveList(entityKey, data)
+    return await apiFetch(entityPath(entityKey))
   } catch (e) {
     if (e.message === 'MOCK_MODE') {
       const { mockList } = await import('./mock.js')
@@ -82,6 +81,7 @@ export async function getRequest(entityKey, id) {
 
 export async function createRequest(entityKey, payload) {
   try {
+    console.log('Payload enviado:', payload) // Para depuración
     const body = JSON.stringify(payload)
     return await apiFetch(entityPath(entityKey), { method: 'POST', body })
   } catch (e) {
