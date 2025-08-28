@@ -1,5 +1,5 @@
 import { BACKEND } from '../config/backend.js'
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api') + (BACKEND.basePath || '')
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL) + (BACKEND.basePath || '')
 const MOCK = String(import.meta.env.VITE_MOCK || 'true') === 'true'
 
 function getToken() {
