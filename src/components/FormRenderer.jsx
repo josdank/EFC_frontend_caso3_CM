@@ -4,7 +4,7 @@ export default function FormRenderer({ fields, values, setValues, lookups }) {
   const todayISO = new Date().toISOString().slice(0,10);
   function extraPropsForField(f){
     const props = {}
-    if (f.type === 'date') {
+    if (f.type === 'date' || f.type === 'datetime-local') {
       const key = f.key.toLowerCase()
       if (key.includes('nacimiento')) {
         props.max = todayISO // birthdate cannot be in the future

@@ -20,6 +20,13 @@ export default function DataTable({ columns, data, basePath, onDelete }) {
     if (col.key === 'especialidadId' && (row.especialidadNombre || (row.especialidad && (row.especialidad.nombre || row.especialidadName)))) {
       return row.especialidadNombre || row?.especialidad?.nombre || row?.especialidadName
     }
+    // Patch for citas nombre/especialidad
+    if (col.key === 'nombre' && row.nombre) {
+      return row.nombre
+    }
+    if (col.key === 'especialidad' && row.especialidad) {
+      return row.especialidad
+    }
     return value == null ? '' : String(value)
   }
   return (

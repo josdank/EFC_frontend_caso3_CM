@@ -57,14 +57,16 @@ export default function EntityForm({ entityKey }) {
     // Birthdate not in future
     for (const key of Object.keys(values)) {
       if (/nacimiento/i.test(key) && values[key]) {
-        if (values[key] > today) errs.push('La fecha de nacimiento no puede ser futura.')
+        const d = String(values[key]).slice(0,10)
+        if (d > today) errs.push('La fecha de nacimiento no puede ser futura.')
       }
     }
 
     // Appointment dates not in the past
     for (const key of Object.keys(values)) {
       if (/fecha/i.test(key) && !/nacimiento/i.test(key) && values[key]) {
-        if (values[key] < today) errs.push('La fecha de la cita no puede ser anterior a hoy.')
+        const d = String(values[key]).slice(0,10)
+        if (d < today) errs.push('La fecha de la cita no puede ser anterior a hoy.')
       }
     }
 

@@ -40,7 +40,7 @@ const CASES = {
         fields: [
           { key: 'codigo', label: 'Código', type: 'string', required: true },
           { key: 'descripcion', label: 'Descripción', type: 'textarea' },
-          { key: 'pacientes', label: 'Pacientes', type: 'select', ref: 'pacientes', required: true },
+          { key: 'pacienteId', label: 'Paciente', type: 'select', ref: 'pacientes', required: true },
           { key: 'especialidadIds', label: 'Especialidades', type: 'multiselect', ref: 'especialidades', required: true },
           { key: 'fecha', label: 'Fecha', type: 'datetime-local', required: true },
         ],
