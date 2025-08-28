@@ -82,7 +82,7 @@ export async function getRequest(entityKey, id) {
 
 export async function createRequest(entityKey, payload) {
   try {
-    const body = JSON.stringify(BACKEND(entityKey, payload))
+    const body = JSON.stringify(payload)
     return await apiFetch(entityPath(entityKey), { method: 'POST', body })
   } catch (e) {
     if (e.message === 'MOCK_MODE') {
@@ -93,9 +93,10 @@ export async function createRequest(entityKey, payload) {
   }
 }
 
+
 export async function updateRequest(entityKey, id, payload) {
   try {
-    const body = JSON.stringify(BACKEND(entityKey, payload))
+    const body = JSON.stringify(payload)
     return await apiFetch(`${entityPath(entityKey)}/${id}`, { method: 'PUT', body })
   } catch (e) {
     if (e.message === 'MOCK_MODE') {
@@ -105,6 +106,8 @@ export async function updateRequest(entityKey, id, payload) {
     throw e
   }
 }
+
+
 
 export async function deleteRequest(entityKey, id) {
   try {
