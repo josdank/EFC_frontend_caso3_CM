@@ -19,7 +19,7 @@ export default function Login() {
     <div className="min-h-screen grid place-items-center p-4">
       <div className="card w-full max-w-md">
         <div className="flex items-center gap-3 mb-4">
-          <img src="/logo.svg" className="h-10 w-10" />
+          <img src="/logo.png" className="h-10 w-10" />
           <div>
             <h1 className="text-xl font-bold">Iniciar sesión</h1>
             <p className="text-sm text-gray-500">{CASE.name}</p>

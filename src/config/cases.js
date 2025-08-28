@@ -17,7 +17,7 @@ const CASES = {
         fields: [
           { key: 'nombre', label: 'Nombre', type: 'text', required: true },
           { key: 'apellido', label: 'Apellido', type: 'text', required: true },
-          { key: 'fecha', label: 'Fecha de nacimiento', type: 'date', required: true },
+          { key: 'nacimiento', label: 'Fecha de nacimiento', type: 'date', required: true },
           { key: 'genero', label: 'Genero', type: 'text', required: true },
           { key: 'ciudad', label: 'Ciudad', type: 'text', required: true },
           { key: 'direccion', label: 'Dirección', type: 'text', required: true },

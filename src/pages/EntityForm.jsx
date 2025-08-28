@@ -49,6 +49,70 @@ export default function EntityForm({ entityKey }) {
     }
     navigate(`/app/${entityKey}`)
   }
+  /* VALIDATION_PATCH */
+  async function validateBeforeSubmit() {
+    const errs = []
+    const today = new Date().toISOString().slice(0,10)
+
+    // Birthdate not in future
+    for (const key of Object.keys(values)) {
+      if (/nacimiento/i.test(key) && values[key]) {
+        if (values[key] > today) errs.push('La fecha de nacimiento no puede ser futura.')
+      }
+    }
+
+    // Appointment dates not in the past
+    for (const key of Object.keys(values)) {
+      if (/fecha/i.test(key) && !/nacimiento/i.test(key) && values[key]) {
+        if (values[key] < today) errs.push('La fecha de la cita no puede ser anterior a hoy.')
+      }
+    }
+
+    // Unique email (if the form has an email)
+    if (values.email) {
+      try {
+        // Try checking in both usuarios and pacientes endpoints to be safe
+        const [u1, u2] = await Promise.allSettled([
+          listRequest('usuarios'),
+          listRequest('pacientes'),
+        ])
+        const all = []
+        if (u1.status === 'fulfilled' && Array.isArray(u1.value)) all.push(...u1.value)
+        if (u2.status === 'fulfilled' && Array.isArray(u2.value)) all.push(...u2.value)
+        const found = all.find(r => String(r.email || '').toLowerCase() === String(values.email).toLowerCase() && String(r.id) !== String(values.id || ''))
+        if (found) errs.push('El correo ya está registrado.')
+      } catch (e) {
+        // If backend not available, skip uniqueness enforcement to avoid blocking
+        console.warn('Email uniqueness check skipped:', e?.message)
+      }
+    }
+
+    return errs
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault()
+    const errs = await validateBeforeSubmit()
+    if (errs.length) {
+      alert(errs.join('\n'))
+      return
+    }
+    if (!confirm('¿Deseas guardar los cambios?')) return
+
+    const payload = { ...values }
+
+    try {
+      if (isEdit) {
+        await updateRequest(entity.key, id, payload)
+      } else {
+        await createRequest(entity.key, payload)
+      }
+      // After save, go back to list
+      navigate(`/app/${entity.key}`)
+    } catch (e) {
+      alert(e?.message || 'Error al guardar')
+    }
+  }
 
   return (
     <Layout>

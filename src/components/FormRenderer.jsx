@@ -1,6 +1,20 @@
 import React from 'react'
 
 export default function FormRenderer({ fields, values, setValues, lookups }) {
+  const todayISO = new Date().toISOString().slice(0,10);
+  function extraPropsForField(f){
+    const props = {}
+    if (f.type === 'date') {
+      const key = f.key.toLowerCase()
+      if (key.includes('nacimiento')) {
+        props.max = todayISO // birthdate cannot be in the future
+      } else if (key.includes('fecha')) {
+        // appointment/other dates cannot be in the past (except if explicitly a patient birthdate handled above)
+        props.min = todayISO
+      }
+    }
+    return props
+  }
   function update(key, value) {
     setValues(prev => ({ ...prev, [key]: value }))
   }
@@ -9,11 +23,13 @@ export default function FormRenderer({ fields, values, setValues, lookups }) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {fields.map(f => {
         const common = {
+          ...(f.type === 'email' ? { inputMode: 'email', pattern: '[^\s@]+@[^\s@]+\.[^\s@]+' } : {}),
           id: f.key,
           name: f.key,
           required: f.required,
           className: 'input',
           value: values[f.key] ?? (f.type === 'multiselect' ? [] : ''),
+          ...extraPropsForField(f),
           onChange: e => update(f.key, e.target.value),
         }
 

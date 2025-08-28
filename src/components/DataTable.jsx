@@ -2,6 +2,26 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function DataTable({ columns, data, basePath, onDelete }) {
+  function renderCell(col, row) {
+    const value = row[col.key];
+    // If the column key ends with 'Id', try to show a human label using common conventions
+    if (value != null && /Id$/.test(col.key)) {
+      const base = col.key.replace(/Id$/, '')
+      // Try variations: object with nombre/name, or sibling string fields
+      const obj = row[base]
+      if (obj && (obj.nombre || obj.name)) return obj.nombre || obj.name
+      if (row[base + 'Nombre']) return row[base + 'Nombre']
+      if (row[base + 'Name']) return row[base + 'Name']
+    }
+    // Custom mapping for citas (common backends often return related objects or denormalized names)
+    if (col.key === 'pacienteId' && (row.pacienteNombre || (row.paciente && (row.paciente.nombre || row.pacienteName)))) {
+      return row.pacienteNombre || row?.paciente?.nombre || row?.pacienteName
+    }
+    if (col.key === 'especialidadId' && (row.especialidadNombre || (row.especialidad && (row.especialidad.nombre || row.especialidadName)))) {
+      return row.especialidadNombre || row?.especialidad?.nombre || row?.especialidadName
+    }
+    return value == null ? '' : String(value)
+  }
   return (
     <div className="w-full overflow-x-auto">
       <div className="inline-block min-w-[1200px] bg-white rounded-2xl shadow">
@@ -9,12 +29,12 @@ export default function DataTable({ columns, data, basePath, onDelete }) {
           <thead className="bg-gray-50">
             <tr>
               {columns.map(col => (
-                <td
+                <th
                   key={col.key}
                   className="px-4 py-2 text-left text-sm font-semibold text-gray-700 whitespace-nowrap min-w-[150px]"
                 >
                   {col.label}
-                </td>
+                </th>
               ))}
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700 whitespace-nowrap min-w-[150px]">
                 Acciones
@@ -28,11 +48,11 @@ export default function DataTable({ columns, data, basePath, onDelete }) {
                   let cellContent = ''
 
                   // Mostrar nombre del paciente
-                  if (col.key === 'Pacientes') {
-                    cellContent = row.pacientesNombre || '—'
+                  if (col.key === 'Nombre' && row.pacientes) {
+                    cellContent = row.pacientes || '—'
                   }
                   // Mostrar nombres de especialidades
-                  else if (col.key === 'especialidadIds') {
+                  else if (col.key === 'EspecialidadIds') {
                     cellContent = row.especialidadesTexto || '—'
                   }
                   // Mostrar contenido normal
@@ -68,7 +88,7 @@ export default function DataTable({ columns, data, basePath, onDelete }) {
                     Editar
                   </Link>
                   <button
-                    onClick={() => onDelete(row.id)}
+                    onClick={() => { if (confirm('¿Seguro que deseas eliminar este registro?')) onDelete(row.id) }}
                     className="btn !bg-red-600 hover:!bg-red-700 !px-3 !py-1"
                   >
                     Eliminar

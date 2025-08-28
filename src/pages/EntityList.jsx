@@ -32,9 +32,7 @@ export default function EntityList({ entityKey }) {
     load()
   }
 
-  const columns = [{ key: 'id', label: 'ID' }].concat(
-    (entity.fields || []).slice(0, 4).map(f => ({ key: f.key, label: f.label }))
-  )
+  const columns = [{ key: 'id', label: 'ID' }].concat((entity.fields || []).map(f => ({ key: f.key, label: f.label })))
 
   return (
     <Layout>
