@@ -137,4 +137,4 @@ VITE_API_BASE_URL=http://localhost:3000/api
 - `auth.loginPath`, `tokenField`, `userField`
 - `cases[N].entities` para mapear cada entidad a su endpoint real
 - `onAfterReceiveList / onAfterReceiveOne` si tu backend envuelve datos (p. ej. `{data: [...]}`)
-- `onBeforeSend` para transformar payloads
+

@@ -1,8 +1,8 @@
 const CASE_ID = Number(import.meta.env.VITE_CASE_ID || 1)
 
 const commonLogin = {
-  emailField: 'email',
-  passwordField: 'password',
+  email: 'email',
+  password: 'password',
 }
 
 const CASES = {

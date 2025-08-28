@@ -23,7 +23,7 @@ export default function FormRenderer({ fields, values, setValues, lookups }) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {fields.map(f => {
         const common = {
-          ...(f.type === 'email' ? { inputMode: 'email', pattern: '[^\s@]+@[^\s@]+\.[^\s@]+' } : {}),
+          ...(f.type === 'email' ? { inputMode: 'email' } : {}),
           id: f.key,
           name: f.key,
           required: f.required,
