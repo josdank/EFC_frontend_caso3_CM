@@ -1,7 +1,3 @@
-// App configurable para 5 casos del EFC.
-// Selecciona el caso con VITE_CASE_ID (1..5).
-// Define entidades, rutas, y campos para UI y API/Mock.
-
 const CASE_ID = Number(import.meta.env.VITE_CASE_ID || 1)
 
 const commonLogin = {
@@ -21,7 +17,7 @@ const CASES = {
         fields: [
           { key: 'nombre', label: 'Nombre', type: 'text', required: true },
           { key: 'apellido', label: 'Apellido', type: 'text', required: true },
-          { key: 'fecha', label: 'Fecha de nacimiento', type: 'date-local', required: true },
+          { key: 'fecha', label: 'Fecha de nacimiento', type: 'date', required: true },
           { key: 'genero', label: 'Genero', type: 'text', required: true },
           { key: 'ciudad', label: 'Ciudad', type: 'text', required: true },
           { key: 'direccion', label: 'Dirección', type: 'text', required: true },
@@ -42,9 +38,9 @@ const CASES = {
         key: 'citas',
         name: 'Citas',
         fields: [
-          { key: 'pacientes', label: 'Pacientes', type: 'select', ref: 'pacientes', required: true },
           { key: 'codigo', label: 'Código', type: 'string', required: true },
           { key: 'descripcion', label: 'Descripción', type: 'textarea' },
+          { key: 'pacientes', label: 'Pacientes', type: 'select', ref: 'pacientes', required: true },
           { key: 'especialidadIds', label: 'Especialidades', type: 'multiselect', ref: 'especialidades', required: true },
           { key: 'fecha', label: 'Fecha', type: 'datetime-local', required: true },
         ],

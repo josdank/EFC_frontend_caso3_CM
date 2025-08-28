@@ -5,12 +5,12 @@ const LS_KEY = 'efc_mock_db_v1'
 function loadDB() {
   const raw = localStorage.getItem(LS_KEY)
   if (raw) return JSON.parse(raw)
-  // init seed
+  // iniciar semilla 
   const db = {}
   Object.values(ALL_CASES).forEach(c => {
     c.entities.forEach(e => {
       db[e.key] = []
-      // seed minimal sample data for lookups
+      
       if (['usuarios', 'pacientes', 'especialidades'].includes(e.key)) {
         for (let i = 1; i <= 3; i++) {
           db[e.key].push({ id: i, nombre: `${e.name} ${i}`, email: `mail${i}@demo.com` })

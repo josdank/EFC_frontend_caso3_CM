@@ -51,43 +51,11 @@ export const BACKEND = {
   // Case-specific entity path maps (keys must match those in cases.js)
   // If your backend uses pluralization/Spanish names shown here, it should work out of the box.
   cases: {
-    1: { // Matrículas
-      entities: {
-        materias: "/materias",
-        estudiantes: "/estudiantes",
-        matriculas: "/matriculas",
-        usuarios: "/usuarios",
-      },
-    },
-    2: { // Renta de carros
-      entities: {
-        clientes: "/clientes",
-        vehiculos: "/vehiculos",
-        reservas: "/reservas",
-        usuarios: "/usuarios",
-      },
-    },
-    3: { // Citas médicas
+    1:  { // Citas médicas
       entities: {
         pacientes: "/pacientes",
         especialidades: "/especialidades",
         citas: "/citas",
-        usuarios: "/usuarios",
-      },
-    },
-    4: { // Tickets de asistencia
-      entities: {
-        tecnicos: "/tecnicos",
-        clientes: "/clientes",
-        tickets: "/tickets",
-        usuarios: "/usuarios",
-      },
-    },
-    5: { // Conferencias
-      entities: {
-        conferencistas: "/conferencistas",
-        auditorios: "/auditorios",
-        reservas: "/reservas",
         usuarios: "/usuarios",
       },
     },

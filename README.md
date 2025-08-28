@@ -1,7 +1,7 @@
-# EFC Frontend Senior (React + Vite + Tailwind)
+# EFC Frontend citas médicas (React + Vite + Tailwind)
 
-Frontend **responsivo** y de **estilo senior** que cubre los **5 casos** del Examen de Fin de Carrera (TSDS – 2025‑A).
-El mismo proyecto funciona para cada caso mediante una variable de entorno (`VITE_CASE_ID`).
+Frontend **responsivo** y de **estilo minimalista** que cubre **el caso N°3 CITAS MÉDICAS** del Examen de Fin de Carrera (TSDS).
+El mismo proyecto funciona.
 
 ## ✅ Características
 
@@ -13,11 +13,9 @@ El mismo proyecto funciona para cada caso mediante una variable de entorno (`VIT
 - **Mensajería de errores** y validación mínima del lado del cliente.
 - Estructura de proyecto clara y lista para producción con Vite.
 
-> Casos soportados: 1) Matrículas, 2) Renta de carros, 3) Citas médicas, 4) Tickets de asistencia, 5) Conferencias.
-
 ## 🛠️ Requisitos
 
-- Node.js 18+
+- Node.js
 - npm o pnpm o yarn
 
 ## 🚀 Comandos
@@ -42,17 +40,14 @@ Cree un archivo `.env` en la raíz (o use `.env.local`) con las variables:
 
 ```bash
 # Seleccione el caso de estudio (1..5)
-VITE_CASE_ID=1
+VITE_CASE_ID=EJEMPLO
 
 # Base URL del backend (solo si NO usa mock)
-VITE_API_BASE_URL=http://localhost:3000/api
+VITE_API_BASE_URL=http://tu_urldelbackend
 
-# Activar/desactivar mock (true/false). Con true no se necesitan endpoints reales.
-VITE_MOCK=true
 ```
 
 - **VITE_CASE_ID** define el dominio: entidades, campos y módulos que se muestran.
-- **VITE_MOCK=true** permite probar el UI sin backend (datos en `localStorage`).
 - Si **VITE_MOCK=false**, el frontend consumirá endpoints REST:
   - `POST /auth/login`  → `{ token, user }`
   - `GET /:entity`      → lista
@@ -76,9 +71,9 @@ efc_frontend_senior/
 │  │  ├─ Layout.jsx
 │  │  └─ ProtectedRoute.jsx
 │  ├─ config/
-│  │  └─ cases.js         # Definición de los 5 casos (entidades y campos)
+│  │  └─ cases.js         # Definición del caso (entidades y campos)
 │  ├─ lib/
-│  │  ├─ api.js           # Cliente REST + token + MOCK
+│  │  ├─ api.js           # Cliente REST + token 
 │  │  └─ mock.js          # Persistencia en localStorage
 │  ├─ pages/
 │  │  ├─ Dashboard.jsx
@@ -128,7 +123,7 @@ Despliegue estático (Netlify, Vercel, GitHub Pages) o detrás de su backend (Ng
 
 ---
 
-Hecho con ❤️ para practicar de forma ética antes del examen.
+Hecho con ❤️ de forma ética para el examen.
 
 
 ## 🔌 Conectar con tu backend real
@@ -143,5 +138,3 @@ VITE_API_BASE_URL=http://localhost:3000/api
 - `cases[N].entities` para mapear cada entidad a su endpoint real
 - `onAfterReceiveList / onAfterReceiveOne` si tu backend envuelve datos (p. ej. `{data: [...]}`)
 - `onBeforeSend` para transformar payloads
-
-Con eso, **no necesitas cambiar más código**.
